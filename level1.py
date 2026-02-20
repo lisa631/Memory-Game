@@ -1,7 +1,6 @@
 from kivy.app import App  
 from kivy.uix.gridlayout import GridLayout  
 from kivy.uix.button import Button  
-<<<<<<< HEAD
 #from kivy.uix.label import Label  
 
 class Level1App(App):  
@@ -32,6 +31,3 @@ class Level1App(App):
         instance.background_color = (0, 0, 1, 1)
 
 Level1App().run()
-=======
-from kivy.uix.label import Label  
->>>>>>> 680d0e2f4b0daa9cbb03b94741134f7065c910a1
