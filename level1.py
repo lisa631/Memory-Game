@@ -6,23 +6,25 @@ from kivy.uix.button import Button
 class Level1App(App):  
     def build(self):    
 
-        grid = GridLayout(cols=4)  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
+        layout = GridLayout(cols=4, row=4)   
+        def __init__(self, **kwargs):         
+            super().__init__(**kwargs)    
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))  
+            grid.add_widget(Button(text="Memory.io", font_size=20))
         return layout
     
 
