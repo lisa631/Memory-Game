@@ -22,6 +22,4 @@ class GridApp(App):
         print(instance.text + "wurde gedrückt")
         instance.background_color = (0, 0, 1, 1)
 
-
-
 GridApp().run()
