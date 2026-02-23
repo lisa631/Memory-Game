@@ -1,30 +1,21 @@
-from kivy.app import App  
-from kivy.uix.gridlayout import GridLayout  
-from kivy.uix.button import Button  
-from kivy.uix.label import Label  
+from kivy.app import App
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.button import Button
+from kivy.uix.label import Label
 
-class MyGridApp(GridLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        # Set grid size
-        self.cols = 6
-        self.rows = 6
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))  
-        grid.add_widget(Button(text="Memory.io", font_size=20))
+
+class GridApp(App):
+    def build(self):
+       # Set grid size
+        self.cols = 4
+        self.rows = 4
+        grid = GridLayout(cols= self.cols, padding=20, spacing=10)
+
+        for i in range(1, 17):
+            grid.add_widget(Button(text=str(i)))
+
+
+        return grid
     
 
     def button_gedrueckt(self, instance):
@@ -32,8 +23,5 @@ class MyGridApp(GridLayout):
         instance.background_color = (0, 0, 1, 1)
 
 
-class GridApp(App):
-    def build(self):
-        return MyGrid()
 
-MyGridApp().run()
+GridApp().run()
