@@ -7,7 +7,7 @@ from kivy.uix.label import Label
 class GridApp(App):
     def build(self):
        # Set grid size
-        self.cols = 4
+        self.cols = 8
         self.rows = 4
         grid = GridLayout(cols= self.cols, padding=20, spacing=10)
 
@@ -21,7 +21,5 @@ class GridApp(App):
     def button_gedrueckt(self, instance):
         print(instance.text + "wurde gedrückt")
         instance.background_color = (0, 0, 1, 1)
-
-
 
 GridApp().run()
