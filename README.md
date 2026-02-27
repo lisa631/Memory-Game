@@ -12,6 +12,10 @@ Nächste Schritte:
 - sobalt ein Paar gefunden wurde soll es offen bleiben
 - counter für die punkte
 - Ende
+- Timer
+- (anpassung für Level 2 und 3)
+- Main Page
+- Ende (Rangliste)
 
 Bildlink Hund: https://www.pngmart.com/files/23/Dog-Emoji-PNG-Pic.png
 
