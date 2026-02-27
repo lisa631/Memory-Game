@@ -1,3 +1,8 @@
+Ich habe den ersten Entwurf für den Algorthmus geschrieben, ich konnte ihn aber noch nicht austesten. Mein Computer will das gerade noch nicht. Wenn das aber jemand kurz überprüfen und mir eine Rückmeldung geben könnte wäre das super. Datei = "Probe für algorithmus" - für level 1 
+ansonsten habe ich jetzt mehrere Boilder hinzugefügt. In der Datei ist noch nicht mitinbegriffen, was passiert, wenn zwei gleiche Paare sich erkennen. 
+
+
+
 Bildlink Hund: https://www.pngmart.com/files/23/Dog-Emoji-PNG-Pic.png
 
 Bilder einfügen:
