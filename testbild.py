@@ -38,7 +38,7 @@ class MemoryCard(BoxLayout):
         self.add_widget(self.card_image)
 
         # Nach 2 Sekunden wieder verdecken
-        Clock.schedule_once(self.hide_card, 2)
+        Clock.schedule_once(self.hide_card, 4)
 
     def hide_card(self, dt):
         # Bild entfernen und Button zurück
@@ -54,4 +54,4 @@ class MemoryApp(App):
 
 
 if __name__ == "__main__":
-    MemoryApp().run()
+    MemoryApp().run() 
