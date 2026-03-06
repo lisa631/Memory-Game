@@ -36,7 +36,7 @@ class GridApp(App):
     def button_pressed(self, button):
 
         if button.offen or self.counter ==2:
-            return
+            return button.image(source= 'lion2.jpeg')
         
         button.background_color = (0, 0, 1, 0)
         button.offen = True
