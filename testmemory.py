@@ -15,7 +15,7 @@ class ImageButton(ButtonBehavior, Image):
         self.game = game
         self.is_matched = False
         self.is_revealed = False
-        self.source = "lion.jpeg"  # Rückseite der Karte
+        self.source = "blau.jpeg"  # Rückseite der Karte
         # 🔹 Bild strecken
         self.allow_stretch = True
         self.keep_ratio = False
@@ -100,8 +100,8 @@ class MemoryGame(App):
 
     def hide_cards(self, dt):
         """Deckt Karten wieder zu."""
-        self.buttons[self.first_choice].source = "lion.jpeg"
-        self.buttons[self.second_choice].source = "lion.jpeg"
+        self.buttons[self.first_choice].source = "blau.jpeg"
+        self.buttons[self.second_choice].source = "blau.jpeg"
         self.buttons[self.first_choice].is_revealed = False
         self.buttons[self.second_choice].is_revealed = False
         self.first_choice = None
