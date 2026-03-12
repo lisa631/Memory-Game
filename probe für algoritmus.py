@@ -1,66 +1,124 @@
-from kivy.app import App  
-from kivy.uix.gridlayout import GridLayout  
-from kivy.uix.button import Button  
-from kivy.uix.label import Label  
-from kivy.clock import Clock
 import random
-from PIL import Image
+from kivy.app import App
+import random
+from kivy.app import App
+from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.clock import Clock
+import time
 
+def main():
+    try:
+        start_time = time.perf_counter()
+        time.sleep(2.5)
+        end_time = time.perf_counter()  
+        elapsed = end_time - start_time
+        print(f"Elapsed time: {elapsed:.6f} seconds")
 
-bilder = ["bear.jpeg", "cat.jpeg", "cow.jpeg", "dog.jpeg", "elefant.jpeg", "fox.jpeg", "koala.jpeg", "lama.jpeg"] * 2
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
+# Klickbares Bild
+class ImageButton(ButtonBehavior, Image):
+    def __init__(self, index, game, **kwargs):
+        super().__init__(**kwargs)
+        self.index = index
+        self.game = game
+        self.is_matched = False
+        self.is_revealed = False
+        self.source = "blau.jpeg"  # Rückseite der Karte
+        # 🔹 Bild strecken
+        self.allow_stretch = True
+        self.keep_ratio = False
+        padding = 30
+        spacing = 30
 
-class GridApp(App):
+    def on_press(self):
+        if not self.is_revealed and not self.is_matched:
+            self.game.reveal_card(self.index)
+
+class MemoryGame(App):
     def build(self):
-        self.counter = 0
-        self.aufgedeckte_buttons = []
+        self.layout = GridLayout(cols=4, spacing=5, padding=5)
 
-        grid = GridLayout(cols= 4, padding=20, spacing=10)
-        self.rows = 4
-        random.shuffle(bilder)
+        # 🔹 HIER deine 8 Bilddateien eintragen
+        base_images = [
+            "dog.jpeg",
+            "cat.jpeg",
+            "cow.jpeg",
+            "bear.jpeg",
+            "elefant.jpeg",
+            "fox.jpeg",
+            "koala.jpeg",
+            "lama.jpeg"
+        ]
+
+        # 2× jede Datei für Paare
+        self.images = base_images * 2
+
+        self.buttons = []
+        self.first_choice = None
+        self.second_choice = None
+        self.locked = False
+        self.new_round()
+        return self.layout
+
+    def new_round(self):
+        """Startet eine neue Runde mit gemischten Bildern."""
+        random.shuffle(self.images)
+        self.layout.clear_widgets()
+        self.buttons.clear()
+        self.first_choice = None
+        self.second_choice = None
+        self.locked = False
+
+        for i in range(16):
+            btn = ImageButton(index=i, game=self)
+            self.buttons.append(btn)
+            self.layout.add_widget(btn)
+
+    def reveal_card(self, index):
+        """Zeigt eine Karte und prüft auf Paar."""
         
+        if self.locked:
+            return
 
-        for bild in bilder:
-            button = Button(
-                background_color=(0, 0, 1, 1))  
-                
-            button.bild = bild 
-            button.offen = False
-            button.bind(on_press=self.button_pressed)
-            grid.add_widget(button)
-                
+        btn = self.buttons[index]
+        btn.source = self.images[index]
+        btn.is_revealed = True
 
-        return grid
-    
-    def button_pressed(self, button):
+        if self.first_choice is None:
+            self.first_choice = index
+        elif self.second_choice is None and index != self.first_choice:
+            self.second_choice = index
+            self.check_match()
 
-        if button.offen or self.counter ==2:
-            return button.image(source= 'lion2.jpeg')
-        
-        button.background_color = (0, 0, 1, 0)
-        button.offen = True
-        self.aufgedeckte_buttons.append(button)
-        self.counter += 1
+    def check_match(self):
+        """Prüft, ob zwei Karten ein Paar sind."""
+        first_btn = self.buttons[self.first_choice]
+        second_btn = self.buttons[self.second_choice]
 
-        if self.counter == 2:
-            Clock.schedule_once(self.pruefen, 5)
-
-    def pruefen(self, dt):
-        for button in self.aufgedeckte_buttons:
-            button.background_color = (0, 0, 1, 1)
-        b1, b2 = self.aufgedeckte_buttons
-
-        if b1.bild != b2.bild:
-            for b in self.aufgedeckte_buttons:
-                b.offen = False
+        if self.images[self.first_choice] == self.images[self.second_choice]:
+            # Paar gefunden
+            first_btn.is_matched = True
+            second_btn.is_matched = True
+            self.first_choice = None
+            self.second_choice = None
         else:
-            b1.disabled = True
-            b2.disabled = True
+            # Kein Paar → kurz anzeigen, dann wieder verdecken
+            self.locked = True
+            Clock.schedule_once(self.hide_cards, 1)
 
-        self.aufgedeckte_buttons = []
-        self.counter = 0
-
+    def hide_cards(self, dt):
+        """Deckt Karten wieder zu."""
+        self.buttons[self.first_choice].source = "blau.jpeg"
+        self.buttons[self.second_choice].source = "blau.jpeg"
+        self.buttons[self.first_choice].is_revealed = False
+        self.buttons[self.second_choice].is_revealed = False
+        self.first_choice = None
+        self.second_choice = None
+        self.locked = False
 
 if __name__ == "__main__":
-    GridApp().run()
+    MemoryGame().run()
