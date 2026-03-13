@@ -1,39 +1,32 @@
 from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-import os
-import sys
+from kivy.uix.boxlayout import BoxLayout
+from level2 import ZweiterScreen()  # Modul importieren
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.lang import Builder
 
+class MenuScreen(Screen):
+    pass
 
+class Manager(ScreenManager):
+    pass
 
-class MemoryApp(App):
+class MyApp(App):
     def build(self):
+        layout = BoxLayout()
+        Builder.load_file('main.kv')
+        sm = Manager()
+        # Screens zum Manager hinzufügen
+        sm.add_widget(MenuScreen(name='menu'))
+        sm.add_widget(SubScreen(name='other'))
+        return sm
+        #btn = Button(text="Funktion ausführen")
+        #btn.bind(on_press=self.on_button_click)
+        #layout.add_widget(btn)
+        #return layout
 
-        layout = BoxLayout(orientation="vertical", size_hint=(1, None), height=50, spacing=20, padding=60)
-        
-        #file_path = ""
-        level2 = Button(text="Level 2", background_color=(0, 0, 1, 1))
-        #file_path = os.path.join(os.path.dirname(__file__), "level2.py")
-        #level2.bind(on_press=self.open_file) 
-        layout.add_widget(level2)
-        level2.pack()
+    #def on_button_click(self, instance):
+        #level2.Subscreen(Screen)  # Funktion aufrufen
 
-
-        return layout
-    
-    #def open_file(self, instance):
-        #file_path = "level2"
-        #try:
-        #    if sys.platform.startswith('win'):
-         #       os.startfile(file_path)
-          #  elif os.name == 'nt':  # Windows
-           #     os.startfile(path)
-        #except Exception as e:
-         #   print(f"Fehler beim Öffnen der Datei: {e}") 
-
-        
-        
-        
-if __name__ == "__main__":
-    MemoryApp().run()
+if __name__ == '__main__':
+    MyApp().run()
