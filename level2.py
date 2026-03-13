@@ -25,6 +25,7 @@ def main():
 # Klickbares Bild
 class ImageButton(ButtonBehavior, Image):
     def __init__(self, index, game, **kwargs):
+        super().__init__(**kwargs)
         Window.fullscreen = 'auto'
         self.index = index
         self.game = game
