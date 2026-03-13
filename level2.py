@@ -9,6 +9,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
 from kivy.uix.label import Label  
 import time
+from kivy.core.window import Window
 
 def main():
     try:
@@ -25,6 +26,7 @@ def main():
 class ImageButton(ButtonBehavior, Image):
     def __init__(self, index, game, **kwargs):
         super().__init__(**kwargs)
+        Window.fullscreen = 'auto'
         self.index = index
         self.game = game
         self.is_matched = False
@@ -33,8 +35,8 @@ class ImageButton(ButtonBehavior, Image):
         # 🔹 Bild strecken
         self.allow_stretch = True
         self.keep_ratio = False
-        padding = 30
-        spacing = 30
+        padding = 50
+        spacing = 50
 
     def on_press(self):
         if not self.is_revealed and not self.is_matched:
