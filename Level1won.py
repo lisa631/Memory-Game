@@ -10,9 +10,8 @@ import sys
 class MemoryApp(App):
     def build(self):
 
+        layout = BoxLayout(orientation="vertical", size_hint=(1, None), height=50, spacing=20, padding=60)
         
-        layout = BoxLayout(orientation='vertical', padding=60, spacing=50)
-
         #file_path = ""
         level2 = Button(text="Level 2", background_color=(0, 0, 1, 1))
         #file_path = os.path.join(os.path.dirname(__file__), "level2.py")
