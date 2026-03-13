@@ -6,6 +6,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
+from kivy.core.window import Window
 
 def main():
     try:
@@ -22,6 +23,7 @@ def main():
 class ImageButton(ButtonBehavior, Image):
     def __init__(self, index, game, **kwargs):
         super().__init__(**kwargs)
+        Window.fullscreen = 'auto'
         self.index = index
         self.game = game
         self.is_matched = False
