@@ -1,7 +1,5 @@
 import random
 from kivy.app import App
-import random
-from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
 from kivy.uix.behaviors import ButtonBehavior
