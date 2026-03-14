@@ -72,8 +72,8 @@ class MemoryGame(App):
  
         # Info-Leiste (Timer + Punkte)
         info_leiste = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50, spacing=10)
-        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(0, 0, 1, 1))
-        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(0, 0, 1, 1))
+        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(1, 1, 1, 1))
+        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(1, 1, 1, 1))
         info_leiste.add_widget(self.timer_label)
         info_leiste.add_widget(self.score_label)
  
