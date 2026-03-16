@@ -1,8 +1,11 @@
-# noch nicht fertig
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
+
+from level1 import Level1Screen
+from level2 import Level2Screen
+from level3 import Level3Screen
 
 
 class MainMenu(Screen):
@@ -10,7 +13,6 @@ class MainMenu(Screen):
         super().__init__(**kwargs)
         box = BoxLayout(orientation='vertical', padding=50, spacing=20)
 
-        # Buttons mit Ziel-Screens
         buttons = [
             ("Level 1", "level1"),
             ("Level 2", "level2"),
@@ -19,7 +21,6 @@ class MainMenu(Screen):
 
         for text, target in buttons:
             btn = Button(text=text, font_size=20)
-            # Wichtig: t=target fixiert den Wert pro Button
             btn.bind(on_press=lambda instance, t=target: self.change_screen(t))
             box.add_widget(btn)
 
@@ -30,21 +31,17 @@ class MainMenu(Screen):
         self.manager.current = screen_name
 
 
-class LevelScreen(Screen):
-    def __init__(self, level_name, **kwargs):
-        super().__init__(**kwargs)
-        box = BoxLayout(orientation='vertical', padding=50, spacing=20)
-        box.add_widget(Button(text=f"Willkommen bei {level_name}", font_size=24))
-        back_btn = Button(text="Zurück", font_size=20)
-        back_btn.bind(on_press=lambda instance: self.go_back())
-        box.add_widget(back_btn)
-        self.add_widget(box)
+class MyApp(App):
+    def build(self):
+        sm = ScreenManager()
 
-    def go_back(self):
-        self.manager.transition = SlideTransition(direction="right")
-        self.manager.current = "menu"
+        sm.add_widget(MainMenu(name="menu"))
+        sm.add_widget(Level1Screen(name="level1"))
+        sm.add_widget(Level2Screen(name="level2"))
+        sm.add_widget(Level3Screen(name="level3"))
 
+        return sm
 
 
 if __name__ == "__main__":
-    MainMenu().run()
+    MyApp().run()
