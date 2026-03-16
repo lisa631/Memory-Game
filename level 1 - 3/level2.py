@@ -37,7 +37,7 @@ class MemoryGame(App):
 
     def build(self):
 
-        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=5)
+        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=[200, 0, 200, 0])
 
         base_images = [
             "Images/dog.jpeg",
@@ -67,8 +67,8 @@ class MemoryGame(App):
 
         info_bar = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50)
 
-        self.timer_label = Label(text="Zeit: 0s", font_size=22)
-        self.score_label = Label(text="Punkte: 0", font_size=22)
+        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
+        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
 
         info_bar.add_widget(self.timer_label)
         info_bar.add_widget(self.score_label)
