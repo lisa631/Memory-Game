@@ -122,7 +122,7 @@ class MemoryGame(App):
         self.elapsed_seconds += 1
         self._update_labels()
 
-    # ── Labels aktualisieren ──────────────────────────────────────
+
     def _update_labels(self):
         self.timer_label.text = f"Zeit: {self.elapsed_seconds}s"
         self.score_label.text = f"Punkte: {self.score}"
