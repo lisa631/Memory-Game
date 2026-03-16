@@ -1,66 +1,39 @@
-from kivy.app import App  
-from kivy.uix.gridlayout import GridLayout  
-from kivy.uix.button import Button  
-from kivy.uix.label import Label  
-from kivy.clock import Clock
-import random
-from PIL import Image
-from kivy.uix.image import Image
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
+import os
+import sys
 
 
-bilder = ["bear.jpeg", "cat.jpeg", "cow.jpeg", "dog.jpeg", "elefant.jpeg", "fox.jpeg", "koala.jpeg", "lama.jpeg"] * 2
 
-
-class GridApp(App):
+class MemoryApp(App):
     def build(self):
-        self.counter = 0
-        self.aufgedeckte_buttons = []
 
-        grid = GridLayout(cols= 4, padding=20, spacing=10)
-        self.rows = 4
-        random.shuffle(bilder)
+        layout = BoxLayout(orientation="vertical", size_hint=(1, None), height=50, spacing=20, padding=60)
         
+        file_path = ""
+        level2 = Button(text="Level 2", background_color=(0, 0, 1, 1))
+        file_path = os.path.join(os.path.dirname(__file__), "level2.py")
+        level2.bind(on_press=self.open_file) 
+        layout.add_widget(level2)
+        level2.pack()
 
-        for bild in bilder:
-            button = Button(
-                background_color=(0, 0, 1, 1))  
-                
-            button.bild = bild 
-            button.offen = False
-            button.bind(on_press=self.button_pressed)
-            grid.add_widget(button)
-                
 
-        return grid
+        return layout
     
-    def button_pressed(self, button):
+    def open_file(self, instance):
+        file_path = "level2"
+        try:
+            if sys.platform.startswith('win'):
+                os.startfile(file_path)
+            elif os.name == 'nt':  # Windows
+                os.startfile(path)
+        except Exception as e:
+            print(f"Fehler beim Öffnen der Datei: {e}") 
 
-        if button.offen or self.counter ==2:
-            return
         
-        button.background_color = (0, 0, 1, 0)
-        button.offen = True
-        self.aufgedeckte_buttons.append(button)
-        self.counter += 1
-
-        if self.counter == 2:
-            Clock.schedule_once(self.pruefen, 5)
-
-    def pruefen(self, dt):
-        for button in self.aufgedeckte_buttons:
-            button.background_color = (0, 0, 1, 1)
-        b1, b2 = self.aufgedeckte_buttons
-
-        if b1.bild != b2.bild:
-            for b in self.aufgedeckte_buttons:
-                b.offen = False
-        else:
-            b1.disabled = True
-            b2.disabled = True
-
-        self.aufgedeckte_buttons = []
-        self.counter = 0
-
-
+        
+        
 if __name__ == "__main__":
-    GridApp().run()
+    MemoryApp().run()

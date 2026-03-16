@@ -72,14 +72,11 @@ class MemoryGame(App):
  
         # Info-Leiste (Timer + Punkte)
         info_leiste = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50, spacing=10)
-        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(0, 0, 1, 1))
-        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(0, 0, 1, 1))
+        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(1, 1, 1, 1))
+        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(1, 1, 1, 1))
         info_leiste.add_widget(self.timer_label)
         info_leiste.add_widget(self.score_label)
  
-        #self.layout = GridLayout(cols=4, spacing=5, padding=5)
- 
-        # Zusammenbauen: info_bar und Spielfeld in root_widget
         self.root_widget.add_widget(info_leiste)
         self.root_widget.add_widget(self.layout)
  
@@ -106,7 +103,6 @@ class MemoryGame(App):
 
         if self.timer_event:
             self.timer_event.cancel()
-        # Jede Sekunde tick() aufrufen
         self.timer_event = Clock.schedule_interval(self.tick, 1)
 
         for i in range(16):
@@ -118,7 +114,6 @@ class MemoryGame(App):
         self.elapsed_seconds += 1
         self._update_labels()
 
-    # ── Labels aktualisieren ──────────────────────────────────────
     def _update_labels(self):
         self.timer_label.text = f"Zeit: {self.elapsed_seconds}s"
         self.score_label.text = f"Punkte: {self.score}"

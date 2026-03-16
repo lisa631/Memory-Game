@@ -49,9 +49,7 @@ class MemoryGame(App):
             "Images/koala.jpeg",
             "Images/lama.jpeg",
             "Images/lion.jpeg",
-            "Images/monky.jpeg",
-            "Images/panda.jpeg",
-            "Images/pig.jpeg"
+            "Images/monky.jpeg"
         ]
 
         self.images = base_images * 2
@@ -81,6 +79,7 @@ class MemoryGame(App):
         self.new_round()
 
         return self.root_widget
+
 
 
     def new_round(self):
