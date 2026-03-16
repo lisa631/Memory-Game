@@ -33,8 +33,7 @@ class ImageButton(ButtonBehavior, Image):
         # 🔹 Bild strecken
         self.allow_stretch = True
         self.keep_ratio = False
-        padding = 30
-        spacing = 30
+
 
     def on_press(self):
         if not self.is_revealed and not self.is_matched:
@@ -42,7 +41,7 @@ class ImageButton(ButtonBehavior, Image):
 
 class MemoryGame(App):
     def build(self):
-        self.layout = GridLayout(cols=4, spacing=5, padding=5)
+        self.layout = GridLayout(cols=4, spacing=5, padding=[200, 0, 200, 0])
 
         # 🔹 HIER deine 8 Bilddateien eintragen
         base_images = [
@@ -72,8 +71,8 @@ class MemoryGame(App):
  
         # Info-Leiste (Timer + Punkte)
         info_leiste = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50, spacing=10)
-        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(1, 1, 1, 1))
-        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(1, 1, 1, 1))
+        self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
+        self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
         info_leiste.add_widget(self.timer_label)
         info_leiste.add_widget(self.score_label)
  
