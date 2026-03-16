@@ -9,6 +9,9 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
 from kivy.uix.label import Label  
 import time
+from kivy.core.window import Window
+from kivy.uix.screenmanager import Screen
+
 
 def main():
     try:
@@ -25,11 +28,12 @@ def main():
 class ImageButton(ButtonBehavior, Image):
     def __init__(self, index, game, **kwargs):
         super().__init__(**kwargs)
+        Window.fullscreen = 'auto'
         self.index = index
         self.game = game
         self.is_matched = False
         self.is_revealed = False
-        self.source = "blau.jpeg"  # Rückseite der Karte
+        self.source = "Images/blau.jpeg"  # Rückseite der Karte
         # 🔹 Bild strecken
         self.allow_stretch = True
         self.keep_ratio = False
@@ -42,21 +46,20 @@ class ImageButton(ButtonBehavior, Image):
 
 class MemoryGame(App):
     def build(self):
-        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=5) 
-        # 🔹 HIER deine 8 Bilddateien eintragen
+        self.layout = GridLayout(cols=4, rows=5, spacing=5, padding=5)
+
+        # 🔹 HIER deine 10 Bilddateien eintragen
         base_images = [
-            "dog.jpeg",
-            "cat.jpeg",
-            "cow.jpeg",
-            "bear.jpeg",
-            "elefant.jpeg",
-            "fox.jpeg",
-            "koala.jpeg",
-            "lama.jpeg",
-            "lion.jpeg",
-            "monky.jpeg",
-            "panda.jpeg",
-            "pig.jpeg"
+            "Images/dog.jpeg",
+            "Images/cat.jpeg",
+            "Images/cow.jpeg",
+            "Images/bear.jpeg",
+            "Images/elefant.jpeg",
+            "Images/fox.jpeg",
+            "Images/koala.jpeg",
+            "Images/lama.jpeg",
+            "Images/lion.jpeg",
+            "Images/monky.jpeg"
         ]
 
         # 2× jede Datei für Paare
@@ -80,9 +83,7 @@ class MemoryGame(App):
         info_leiste.add_widget(self.timer_label)
         info_leiste.add_widget(self.score_label)
  
-        #self.layout = GridLayout(cols=4, spacing=5, padding=5)
- 
-        # Zusammenbauen: info_bar und Spielfeld in root_widget
+
         self.root_widget.add_widget(info_leiste)
         self.root_widget.add_widget(self.layout)
  
@@ -92,6 +93,7 @@ class MemoryGame(App):
         # return self.layout       →  zeigt nur das Spielfeld
         # return root              →  zeigt nur die Infoleiste
         return self.root_widget  
+
 
     def new_round(self):
         """Startet eine neue Runde mit gemischten Bildern."""
@@ -111,21 +113,20 @@ class MemoryGame(App):
         # Jede Sekunde tick() aufrufen
         self.timer_event = Clock.schedule_interval(self.tick, 1)
 
-
-        for i in range(24):
+        for i in range(20):
             btn = ImageButton(index=i, game=self)
             self.buttons.append(btn)
             self.layout.add_widget(btn)
-
     def tick(self, dt):
         """Wird jede Sekunde aufgerufen und erhöht den Timer."""
         self.elapsed_seconds += 1
         self._update_labels()
 
-    # ── Labels aktualisieren ──────────────────────────────────────
+
     def _update_labels(self):
         self.timer_label.text = f"Zeit: {self.elapsed_seconds}s"
         self.score_label.text = f"Punkte: {self.score}"
+
 
     def reveal_card(self, index):
         """Zeigt eine Karte und prüft auf Paar."""
@@ -152,16 +153,8 @@ class MemoryGame(App):
             # Paar gefunden
             first_btn.is_matched = True
             second_btn.is_matched = True
-            self.score += 1       
-            self._update_labels()
             self.first_choice = None
             self.second_choice = None
-            if self.score == 12:
-                self.locked = True
-                if self.timer_event:
-                    self.timer_event.cancel()
-                print(f"Du hast gewonnen! Zeit: {self.elapsed_seconds}s | Punkte: {self.score}")
-                
         else:
             # Kein Paar → kurz anzeigen, dann wieder verdecken
             self.locked = True
@@ -169,8 +162,8 @@ class MemoryGame(App):
 
     def hide_cards(self, dt):
         """Deckt Karten wieder zu."""
-        self.buttons[self.first_choice].source = "blau.jpeg"
-        self.buttons[self.second_choice].source = "blau.jpeg"
+        self.buttons[self.first_choice].source = "Images/blau.jpeg"
+        self.buttons[self.second_choice].source = "Images/blau.jpeg"
         self.buttons[self.first_choice].is_revealed = False
         self.buttons[self.second_choice].is_revealed = False
         self.first_choice = None

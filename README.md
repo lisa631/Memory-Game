@@ -30,5 +30,16 @@ Bildlink Hund: https://www.pngmart.com/files/23/Dog-Emoji-PNG-Pic.png
     
 label.pack()
 
-root.mainloop()
+r
+
+
+
+
+
+Ziele:
+- level 3 anpassen
+- level 2 skalierung - joline
+- Startsteite - Caro
+- überleitung-funktionene - Lisa
+- oot.mainloop()
 
