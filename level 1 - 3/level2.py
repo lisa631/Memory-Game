@@ -37,8 +37,6 @@ class ImageButton(ButtonBehavior, Image):
         # 🔹 Bild strecken
         self.allow_stretch = True
         self.keep_ratio = False
-        padding = 30
-        spacing = 30
 
     def on_press(self):
         if not self.is_revealed and not self.is_matched:
