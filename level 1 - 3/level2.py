@@ -83,9 +83,7 @@ class MemoryGame(App):
         info_leiste.add_widget(self.timer_label)
         info_leiste.add_widget(self.score_label)
  
-        #self.layout = GridLayout(cols=4, spacing=5, padding=5)
- 
-        # Zusammenbauen: info_bar und Spielfeld in root_widget
+
         self.root_widget.add_widget(info_leiste)
         self.root_widget.add_widget(self.layout)
  
