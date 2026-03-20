@@ -1,4 +1,4 @@
-
+import time
 import random
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -65,15 +65,15 @@ class MemoryGame(App):
 
         self.root_widget = BoxLayout(orientation="vertical", spacing=5, padding=5)
 
-        info_bar = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50)
+        info_leiste = BoxLayout(orientation="horizontal", size_hint=(1, None), height=50)
 
         self.timer_label = Label(text="Zeit: 0s", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
         self.score_label = Label(text="Punkte: 0", font_size=22, bold=True, color=(0.400, 0.698, 1, 1))
 
-        info_bar.add_widget(self.timer_label)
-        info_bar.add_widget(self.score_label)
+        info_leiste.add_widget(self.timer_label)
+        info_leiste.add_widget(self.score_label)
 
-        self.root_widget.add_widget(info_bar)
+        self.root_widget.add_widget(info_leiste)
         self.root_widget.add_widget(self.layout)
 
         self.new_round()
