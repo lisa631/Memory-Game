@@ -104,7 +104,6 @@ class MemoryGame(App):
 
         if self.timer_event:
             self.timer_event.cancel()
-        # Jede Sekunde tick() aufrufen
         self.timer_event = Clock.schedule_interval(self.tick, 1)
 
         for i in range(24):
