@@ -1,5 +1,5 @@
 import random
-from kivy.app import App
+from kivy.uix.screenmanager import Screen
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
