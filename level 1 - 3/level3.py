@@ -1,4 +1,3 @@
-import random
 from kivy.app import App
 import random
 from kivy.app import App
@@ -10,18 +9,12 @@ from kivy.clock import Clock
 from kivy.uix.label import Label  
 import time
 from kivy.core.window import Window
+from kivy.uix.popup import Popup
+from kivy.uix.button import Button
 
 
-def main():
-    try:
-        start_time = time.perf_counter()
-        time.sleep(2.5)
-        end_time = time.perf_counter()  
-        elapsed = end_time - start_time
-        print(f"Elapsed time: {elapsed:.6f} seconds")
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+
 
 # Klickbares Bild
 class ImageButton(ButtonBehavior, Image):
@@ -96,15 +89,18 @@ class MemoryGame(App):
     def new_round(self):
         """Startet eine neue Runde mit gemischten Bildern."""
         random.shuffle(self.images)
+
         self.layout.clear_widgets()
         self.buttons.clear()
+
         self.first_choice = None
         self.second_choice = None
         self.locked = False
 
         self.elapsed_seconds = 0
         self.score = 0
-        self._update_labels()
+
+        self.update_labels()
 
         if self.timer_event:
             self.timer_event.cancel()
@@ -115,13 +111,15 @@ class MemoryGame(App):
             btn = ImageButton(index=i, game=self)
             self.buttons.append(btn)
             self.layout.add_widget(btn)
+
+
     def tick(self, dt):
         """Wird jede Sekunde aufgerufen und erhöht den Timer."""
         self.elapsed_seconds += 1
-        self._update_labels()
+        self.update_labels()
 
 
-    def _update_labels(self):
+    def update_labels(self):
         self.timer_label.text = f"Zeit: {self.elapsed_seconds}s"
         self.score_label.text = f"Punkte: {self.score}"
 
@@ -143,18 +141,26 @@ class MemoryGame(App):
             self.check_match()
 
     def check_match(self):
-        """Prüft, ob zwei Karten ein Paar sind."""
+
         first_btn = self.buttons[self.first_choice]
         second_btn = self.buttons[self.second_choice]
 
         if self.images[self.first_choice] == self.images[self.second_choice]:
-            # Paar gefunden
+
             first_btn.is_matched = True
             second_btn.is_matched = True
+
+            self.score += 1
+            self.update_labels()
+
             self.first_choice = None
             self.second_choice = None
+
+            if self.score == 12:
+                self.game_won()
+
         else:
-            # Kein Paar → kurz anzeigen, dann wieder verdecken
+
             self.locked = True
             Clock.schedule_once(self.hide_cards, 1)
 
@@ -167,6 +173,40 @@ class MemoryGame(App):
         self.first_choice = None
         self.second_choice = None
         self.locked = False
+    
+    def game_won(self):
+
+        if self.timer_event:
+            self.timer_event.cancel()
+
+        layout = BoxLayout(orientation="vertical", spacing=20, padding=20)
+
+        message = Label(
+            text=f"Du hast gewonnen!\n\nZeit: {self.elapsed_seconds}s\nPunkte: {self.score}",
+            font_size=24
+        )
+
+        restart_button = Button(text="Neues Spiel", size_hint=(1, 0.4))
+        restart_button.bind(on_press=self.restart_game)
+
+        layout.add_widget(message)
+        layout.add_widget(restart_button)
+
+        self.popup = Popup(
+            title="Gewinner",
+            content=layout,
+            size_hint=(None, None),
+            size=(400, 300),
+            auto_dismiss=False
+        )
+
+        self.popup.open()
+
+
+    def restart_game(self, instance):
+
+        self.popup.dismiss()
+        self.new_round()
 
 if __name__ == "__main__":
     MemoryGame().run()
