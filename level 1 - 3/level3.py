@@ -36,7 +36,7 @@ class ImageButton(ButtonBehavior, Image):
 
 class MemoryGame(App):
     def build(self):
-        self.layout = GridLayout(cols=4, rows=6, spacing=10, padding=[200, 0, 200, 0])
+        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=[300, 0, 300, 0])
 
         base_images = [
             "Images/dog.jpeg",
