@@ -36,7 +36,7 @@ class ImageButton(ButtonBehavior, Image):
 
 class MemoryGame(App):
     def build(self):
-        self.layout = GridLayout(cols=4, rows=6, spacing=10, padding=[200, 0, 200, 0])
+        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=[300, 0, 300, 0])
 
         base_images = [
             "Images/dog.jpeg",
@@ -104,7 +104,6 @@ class MemoryGame(App):
 
         if self.timer_event:
             self.timer_event.cancel()
-        # Jede Sekunde tick() aufrufen
         self.timer_event = Clock.schedule_interval(self.tick, 1)
 
         for i in range(24):
