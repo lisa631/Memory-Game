@@ -37,7 +37,7 @@ class MemoryGame(App):
 
     def build(self):
 
-        self.layout = GridLayout(cols=4, rows=6, spacing=5, padding=[200, 0, 200, 0])
+        self.layout = GridLayout(cols=4, rows=5, spacing=5, padding=[200, 0, 200, 0])
 
         base_images = [
             "Images/dog.jpeg",
@@ -103,7 +103,7 @@ class MemoryGame(App):
 
         self.timer_event = Clock.schedule_interval(self.tick, 1)
 
-        for i in range(24):
+        for i in range(20):
             btn = ImageButton(index=i, game=self)
             self.buttons.append(btn)
             self.layout.add_widget(btn)
